@@ -1,11 +1,2 @@
-skos:prefLabel@en	 skos:definition@en	"dcterms:source
-  part 1 "	"dcterms:source
-  part 2"	"skos:prefeLabel@it
-"	"skos:definition@it
-"	skos:hasTopConcept
-"AI application
-"	a system, tool or service that uses artificial intelligence (AI) techniques to automate or enhance specific tasks to deliver an intended result	letters	ISO/IEC 5339:2024(en) [adapted]	applicazione dell'IA	un sistema, uno strumento o un servizio che utilizza tecniche di intelligenza artificiale (AI) per automatizzare o migliorare compiti specifici allo scopo di fornire il risultato atteso	Information Science and Data Management 
-alphanumeric	a character set represented by numerals and letters	letters	https://iate.europa.eu/search/result/1745487009001/1 [exact]	alfanumerico	un set di caratteri rappresentato da numeri e lettere	Information Science and Data Management 
-"alphanumeric inventory code
-"	a unique, human-readable, non-semantic identifier assigned to an object	letters	https://qodenext.com/blog/stock-keeping-unit/ [exact] 	codice alfanumerico dell'inventario	un identificatore univoco, non semantico e leggibile dall'uomo, assegnato a un oggetto	Information Science and Data Management 
-ancient painting	an artistic practice of applying pigment to surfaces, such as walls, pottery, wood, and stone, originating from the earliest periods of human history (40,000 BCE - 600 CE)	website	https://en.wikipedia.org/wiki/Ancient_art  [adapted]	pittura antica	una pratica artistica di applicazione di pigmenti su superfici, come pareti, ceramiche, legno e pietra, risalente ai primi periodi della storia umana (40.000 a.C. - 600 d.C.)	Information Science and Data Management 
+one  two  three
+four  five  six
