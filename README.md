@@ -58,7 +58,7 @@ This repository contains the source files, published versions, and current versi
 │   └── ...
 ├── scripts/
 │   └── [xls2SKOS]
-│   └── [SKOS2RDFTutle]
+│   └── [YAML2RDFTutle]
 └── source/
     └── [WORKING_SPREADSHEET]
 ```
