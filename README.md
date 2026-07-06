@@ -51,8 +51,7 @@ This repository contains the source files, published versions, and current versi
 ```text
 .
 ├── README.md
-├── current/
-│   └── [CURRENT_VERSION_FILE].ttl
+├── [working_version]
 ├── published-versions/
 │   ├── [VERSION_1].ttl
 │   ├── [VERSION_2].ttl
@@ -69,9 +68,8 @@ This repository contains the source files, published versions, and current versi
 | Path                                 | Description                                                                             |
 | ------------------------------------ | --------------------------------------------------------------------------------------- |
 | `README.md`                          | Documentation for the repository and the ECHOES Glossary.                               |
-| `current/`                           | Contains the most recent version of the glossary in SKOS/Turtle format.                 |
-| `current/[CURRENT_VERSION_FILE].ttl` | The current version of the ECHOES Glossary used for publication.                        |
-| `published-versions/`                | Archive of previously published glossary releases.                                      |
+| `working version.csv`                | The working version of the glossary used exclusively for collaboration.                 |
+| `published-versions/`                | Folder of previously published glossary releases.                                      |
 | `published-versions/[VERSION].ttl`   | Versioned SKOS/Turtle files corresponding to earlier releases.                          |
 | `source/`                            | Contains the working source data, such as the spreadsheet used to prepare the glossary. |
 | `scripts/`                           | Contains scripts used to transform the spreadsheet into SKOS/Turtle format.             |
@@ -153,7 +151,7 @@ Use this workflow when proposing a new glossary term.
 
 ### Working with Files
 
-* The **current version** contains the latest editable version of the glossary.
+* The **working version** contains the latest editable version of the glossary.
 * The **published versions** folder contains stable releases and should not be edited directly.
 * Small changes can be made using GitHub’s online editor.
 * Larger changes should be made locally using a branch and pull request.
@@ -165,7 +163,6 @@ Contributors who want to review translations for a specific language can open an
 * the language they want to support;
 * their relevant experience;
 * a short explanation of their interest.
-
 
 ## Licence
 
@@ -185,4 +182,4 @@ The ECHOES Glossary was developed within the ECHOES project through collaborativ
 
 The glossary is modelled using SKOS, the W3C Simple Knowledge Organisation System.
 
-Publication is supported through the Skosmos platform and the Skosmos instance maintained by the CNR Institute for Computational Linguistics “A. Zampolli” (CNR-ILC), leading member of CLARIN-IT.
+Publication is supported through the SKOSMOS platform and the SKOSMOS instance maintained by the CNR Institute for Computational Linguistics “A. Zampolli” (CNR-ILC), executive member of CLARIN-IT.
