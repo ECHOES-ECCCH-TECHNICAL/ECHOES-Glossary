@@ -58,7 +58,8 @@ This repository contains the source files, published versions, and current versi
 │   ├── [VERSION_2].ttl
 │   └── ...
 ├── scripts/
-│   └── [SCRIPT_NAME]
+│   └── [xls2SKOS]
+│   └── [SKOS2RDFTutle]
 └── source/
     └── [WORKING_SPREADSHEET]
 ```
@@ -81,7 +82,7 @@ We welcome contributions that improve the ECHOES Glossary. Contributions should 
 
 You can contribute by:
 
- * adding new terms;
+ * Proposing candidate terms;
  * improving or clarifying definitions;
  * correcting unclear or duplicate concepts;
  * adding or revising translations;
