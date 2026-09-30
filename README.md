@@ -86,7 +86,8 @@ You can contribute by:
  * adding or revising translations;
  * improving sources or documentation.
 
-Please note that while the repository is public, this would only allow collaborators to preview the content and consider improvements to the glossary. However, suggestions or proposed changes should still be submitted through **GitHub Issues**, which would remain the required channel for collecting, discussing, and approving proposals. Once approved, changes would be implemented through **pull requests** before being included in the glossary.
+> [!NOTE]
+> Please note that while the repository is public, this would only allow collaborators to preview the content and consider improvements to definitions, terms, domain concepts, and related content. However, suggestions or proposed changes should still be submitted through **GitHub Issues**, which would remain the required channel for collecting, discussing, and approving proposals. Once approved, changes would be implemented through **pull requests** before being included in the glossary.
 
 ### General Change Workflow
 
