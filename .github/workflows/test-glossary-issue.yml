@@ -1,0 +1,106 @@
+name: Test glossary issue creation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+
+concurrency:
+  group: glossary-issue-pilot
+  cancel-in-progress: false
+
+jobs:
+  test-connection:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Authenticate as glossary bot
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: projects/554348329227/locations/global/workloadIdentityPools/echoes-github/providers/github-actions
+          service_account: echoes-glossary-bot@echoes-glossary-validation-hub.iam.gserviceaccount.com
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/spreadsheets
+          create_credentials_file: false
+          export_environment_variables: false
+
+      - name: Create or recover the test issue and link it
+        env:
+          GOOGLE_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PYTHON'
+          import json
+          import os
+          import subprocess
+          from urllib.parse import quote
+          from urllib.request import Request, urlopen
+
+          sheet_id = '1z8QuSr2-oHd7D2HM5Ka1ayLezuBYeOCZC1gf8OLFoy4'
+          sheet_url = f'https://sheets.googleapis.com/v4/spreadsheets/{sheet_id}/values/'
+          auth = {'Authorization': 'Bearer ' + os.environ['GOOGLE_ACCESS_TOKEN']}
+          repo = os.environ['GITHUB_REPOSITORY']
+          marker = '<!-- echoes-pilot:ECHOES-0001:WP01 -->'
+
+          def sheet(range_, values=None):
+              url = sheet_url + quote(f"'Glossary Validation'!{range_}", safe='')
+              request = Request(url, headers=auth)
+              if values is not None:
+                  request = Request(
+                      url + '?valueInputOption=RAW',
+                      data=json.dumps({'values': [values]}).encode(),
+                      headers={**auth, 'Content-Type': 'application/json'},
+                      method='PUT',
+                  )
+              with urlopen(request, timeout=30) as response:
+                  return json.load(response)
+
+          def github(*args, payload=None):
+              return json.loads(subprocess.check_output(
+                  ['gh', 'api', *args], text=True,
+                  input=None if payload is None else json.dumps(payload),
+              ))
+
+          headers, row = sheet('A1:M2')['values']
+          if headers[8:13] != [
+              'WP01 · Assessment', 'WP01 · Field', 'WP01 · Proposed change',
+              'WP01 · Reason / evidence', 'WP01 · GitHub issue',
+          ] or row[0] != 'ECHOES-0001':
+              raise SystemExit('The expected pilot cell layout has changed.')
+          if row[8:12] != ['Invalid', 'Definition EN', 'TEST', 'TEST']:
+              raise SystemExit('The pilot entry has changed. Check the test row before rerunning.')
+
+          issues = github(f'repos/{repo}/issues?state=all&per_page=100', '--paginate', '--slurp')
+          matches = [
+              issue for page in issues for issue in page
+              if 'pull_request' not in issue
+              and issue['user']['login'] == 'github-actions[bot]'
+              and (issue.get('body') or '').endswith(marker)
+          ]
+          if len(matches) > 1:
+              raise SystemExit('More than one pilot issue already exists.')
+          existing_link = row[12] if len(row) > 12 else ''
+          if existing_link and (not matches or existing_link != matches[0]['html_url']):
+              raise SystemExit('The pilot cell already links to a different issue.')
+          if matches:
+              issue = matches[0]
+          else:
+              issue = github('--method', 'POST', f'repos/{repo}/issues', '--input', '-', payload={
+                  'title': '[TEST] ECHOES-0001 · WP01 · Definition EN',
+                  'body': 'End-to-end workflow test for AI application. The proposed change and evidence are both TEST.\n\n' + marker,
+              })
+          print(f"Pilot issue: {issue['html_url']}", flush=True)
+          if not existing_link:
+              current = sheet('A2:M2')['values'][0]
+              if current != row:
+                  raise SystemExit('The pilot row changed during the run. The issue can be recovered on rerun.')
+              sheet('M2', [issue['html_url']])
+          if sheet('M2')['values'] != [[issue['html_url']]]:
+              raise SystemExit('Issue link verification failed.')
+          print('Verified one pilot issue and its matching link in the sheet.')
+          PYTHON
