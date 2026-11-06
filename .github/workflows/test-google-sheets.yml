@@ -1,0 +1,54 @@
+name: Test Google Sheets connection
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  test-connection:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Authenticate as glossary bot
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: projects/554348329227/locations/global/workloadIdentityPools/echoes-github/providers/github-actions
+          service_account: echoes-glossary-bot@echoes-glossary-validation-hub.iam.gserviceaccount.com
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/spreadsheets.readonly
+          create_credentials_file: false
+          export_environment_variables: false
+
+      - name: Read glossary headers without changing the sheet
+        env:
+          GOOGLE_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.parse
+          import urllib.request
+          import urllib.error
+
+          spreadsheet = '1z8QuSr2-oHd7D2HM5Ka1ayLezuBYeOCZC1gf8OLFoy4'
+          cell_range = urllib.parse.quote("'Glossary Validation'!A1:H1", safe='')
+          url = f'https://sheets.googleapis.com/v4/spreadsheets/{spreadsheet}/values/{cell_range}'
+          request = urllib.request.Request(url, headers={
+              'Authorization': 'Bearer ' + os.environ['GOOGLE_ACCESS_TOKEN']
+          })
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  data = json.load(response)
+          except urllib.error.HTTPError as error:
+              raise SystemExit(f'Sheets API returned HTTP {error.code}. Check bot sharing and enabled APIs.')
+          values = data.get('values', [])
+          if not values or values[0][:2] != ['ConceptID', 'Term EN']:
+              raise SystemExit('Connected, but expected glossary headers were not found.')
+          print('SUCCESS: GitHub Actions authenticated as the bot and read the glossary headers.')
+          print('No sheet cells, CSV files, or GitHub issues were changed.')
+          PY
