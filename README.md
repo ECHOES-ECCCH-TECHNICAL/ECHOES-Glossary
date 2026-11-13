@@ -183,4 +183,4 @@ The ECHOES Glossary was developed within the ECHOES project through collaborativ
 
 The glossary is modelled using SKOS, the W3C Simple Knowledge Organisation System.
 
-Publication is supported through the SKOSMOS platform and the SKOSMOS instance maintained by the CNR Institute for Computational Linguistics “A. Zampolli” (CNR-ILC), executive member of CLARIN-IT.
+Publication is supported through the SKOSMOS platform and the SKOSMOS instance maintained by the CNR Institute for Computational Linguistics “A. Zampolli” (CNR-ILC), executive member of CLARIN-IT: https://vocabs.ilc4clarin.ilc.cnr.it/skosmos/en/
