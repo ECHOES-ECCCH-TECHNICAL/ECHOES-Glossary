@@ -174,7 +174,7 @@ Contributors who want to review translations for a specific language can open an
 To cite the ECHOES Glossary, please use:
 
 ```text
-[INSERT RECOMMENDED CITATION]
+ECHOES Glossary project Team. (2026). ECHOES glossary (Version 0.9 beta). ILC4CLARIN Skosmos Service. https://vocabs.ilc4clarin.ilc.cnr.it/skosmos/echoes_glossary/en/
 ```
 
 ## Credits
