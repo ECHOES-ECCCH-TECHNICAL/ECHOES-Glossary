@@ -74,20 +74,21 @@ This repository contains the source files, published versions, and current versi
 | `source/`                            | Contains the working source data, such as the spreadsheet used to prepare the glossary. |
 | `scripts/`                           | Contains scripts used to transform the spreadsheet into SKOS/Turtle format.             |
 
-## Contributing to the Glossary
+## Glossary validation and contribution
 
-We welcome contributions that improve the ECHOES Glossary. Contributions should follow a clear and structured process to ensure consistency, quality, and traceability.
+We have developed two ways for experts to help validate and contribute to the ECHOES Glossary. Both lead to the same editorial process. What differs is where experts enter their feedback and how it reaches the glossary maintainers.
 
-You can contribute by:
+## GitHub-based validation and contribution
 
- * Proposing candidate terms;
- * improving or clarifying definitions;
- * correcting unclear or duplicate concepts;
- * adding or revising translations;
- * improving sources or documentation.
+Through this approach, validators and contributors would review the glossary content maintained in **working version.csv** to identify potential improvements, including:
 
-> [!NOTE]
-> Please note that while the repository is public, this would only allow collaborators to preview the content and consider improvements to definitions, terms, domain concepts, and related content. However, suggestions or proposed changes should still be submitted through **GitHub Issues**, which would remain the required channel for collecting, discussing, and approving proposals. Once approved, changes would be implemented through **pull requests** before being included in the glossary.
+- Proposing candidate terms;
+- Improving or clarifying existing definitions;
+- Correcting ambiguous or duplicate concepts;
+- Adding or revising translations;
+- Improving references, sources, or supporting documentation.
+
+Depending on the nature of the proposed change, one of the following workflows applies:
 
 ### General Change Workflow
 
@@ -136,7 +137,7 @@ Use this workflow when proposing a new glossary term.
 
 2. **Conceptual review**
    Administrators check whether the term is relevant and does not duplicate an existing concept.
-
+   
 3. **SKOS placement**
    The term is assigned to the appropriate broader category:
 
@@ -147,8 +148,60 @@ Use this workflow when proposing a new glossary term.
 4. **Translation review**
    Required translations are added and checked by the relevant Language Reviewers.
 
-5. **Publication**
-   Once validated, the term is added to the current version and included in the next published release.
+   
+All suggestions and proposed changes would be submitted through **GitHub Issues**, which would serve as the required channel for collecting, discussing, reviewing, and approving contributions among the glossary managers.
+
+## Google Sheets-based validation and contribution
+
+This approach allows experts to review and contribute to the **ECHOES Glossary** using a shared Google Sheets workbook, without needing to use GitHub directly.
+
+The workbook contains three sheets:
+
+- **`Glossary_validation`**: To review existing glossary entries and suggest improvements.
+- **`New_term_suggestion`**: To propose new terms for inclusion in the glossary.
+- **`validation_instructions`**: To guide contributors through the validation process.
+
+### 1. Reviewing existing glossary entries
+
+Experts use the **Glossary_validation** sheet to review terms, definitions, translations, and sources.
+
+For each entry, contributors should:
+
+1. **Select an assessment:** Choose *Valid* if the entry is correct or *Invalid* if it needs changes. Leave blank if not yet reviewed.
+2. **Identify the field:** If Invalid, select the field that needs improvement or choose *Multiple fields*.
+3. **Propose a change:** Provide the exact replacement text or value.
+4. **Explain the reason:** Briefly explain the suggested change and include supporting sources where available.
+
+The **GitHub issue** column should be left blank, as it is managed by the glossary maintainers.
+
+### 2. Suggesting new terms
+
+Experts can propose additional terms using the **New_term_suggestion** sheet.
+
+Before adding a term, contributors should check whether the concept already exists in the glossary.
+
+For each new term, contributors are encouraged to provide:
+
+- Proposed English term and definition;
+- Italian term and definition, if available;
+- Relevant category;
+- Supporting sources or references.
+
+If completing all fields is too time-consuming, **providing the proposed term and supporting sources is sufficient**. Glossary maintainers can complete the missing information.
+
+### 3. Review and integration of suggestions
+
+Once contributors have entered their feedback:
+
+1. **Collection:** Glossary maintainers review the submitted suggestions.
+4. **Implementation:** Approved changes are implemented through pull requests.
+5. **Integration:** An administrator merges the approved changes into the glossary. For accepted new terms, maintainers also assign a unique ConceptID.
+
+This approach makes participation easier for experts while ensuring that all contributions follow the same **GitHub-based editorial and approval process**.
+
+### Publication 
+
+
 
 ### Working with Files
 
