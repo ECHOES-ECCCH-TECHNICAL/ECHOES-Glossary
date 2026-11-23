@@ -201,6 +201,15 @@ This approach makes participation easier for experts while ensuring that all con
 
 ### Publication 
 
+The ECHOES Glossary is updated periodically to incorporate reviewed and approved contributions.
+
+After each round of reviewing and processing submitted suggestions, the approved changes are merged into the glossary's working CSV file through pull requests.
+The publication process follows these steps:
+
+1. **Review and integration:** Submitted suggestions are reviewed, validated, and incorporated into the glossary through approved pull requests.
+2. **CSV-to-SKOS conversion:** A GitHub Actions workflow converts the updated glossary CSV file into SKOS format.
+3. **Publication:** The generated SKOS data is used to publish an updated version of the glossary through the **Skosmos instance**, making the latest validated content available for consultation and reuse.
+4. **Version preservation:** Each published version of the glossary is preserved and remains accessible, allowing users to consult previous versions and track how the glossary has evolved.
 
 
 ### Working with Files
